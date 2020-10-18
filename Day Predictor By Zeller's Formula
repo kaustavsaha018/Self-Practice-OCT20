@@ -1,0 +1,132 @@
+package objectOrientedProgramming;
+
+import java.util.Scanner;
+import java.time.*; 
+public class DayPredictor {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter a date in the format DD/MM/YYYY: ");
+		String enter = sc.next();
+		sc.close();
+		String[] date  = enter.split("/");
+		String date_temp = date[0]; 
+		String month_temp = date[1]; 
+		String year_temp = date[2];
+		int n1 = Integer.parseInt(date_temp);
+		int n2 = Integer.parseInt(month_temp);
+		int n3 = Integer.parseInt(year_temp);
+		Year Y = Year.of(n3);
+		if(n2>2) { n2 = n2-2;}
+		else if (n2<=2) {n2=n2+10;n3=n3-1;}
+	
+		if(Y.isLeap()) {
+		if(		n2==1 && n1>=1 && n1<=31 || 
+				n2==2 && n1>=1 && n1<=30 ||
+				n2==3 && n1>=1 && n1<=31 ||
+				n2==4 && n1>=1 && n1<=30 ||
+				n2==5 && n1>=1 && n1<=31 ||
+				n2==6 && n1>=1 && n1<=31 ||
+				n2==7 && n1>=1 && n1<=30 ||
+				n2==8 && n1>=1 && n1<=31 ||
+				n2==9 && n1>=1 && n1<=30 ||
+				n2==10 && n1>=1 && n1<=31 ||
+				n2==11 && n1>=1 && n1<=31 ||
+				n2==12 && n1>=1 && n1<=29
+			){
+			
+			new predict(calculation (n1,n2,n3));
+			} 	
+		
+		else {System.out.println("Invalid Date!");}
+			}
+		else {
+			if(		n2==1 && n1>=1 && n1<=31 || 
+					n2==2 && n1>=1 && n1<=30 ||
+					n2==3 && n1>=1 && n1<=31 ||
+					n2==4 && n1>=1 && n1<=30 ||
+					n2==5 && n1>=1 && n1<=31 ||
+					n2==6 && n1>=1 && n1<=31 ||
+					n2==7 && n1>=1 && n1<=30 ||
+					n2==8 && n1>=1 && n1<=31 ||
+					n2==9 && n1>=1 && n1<=30 ||
+					n2==10 && n1>=1 && n1<=31 ||
+					n2==11 && n1>=1 && n1<=31 ||
+					n2==12 && n1>=1 && n1<=28
+				) {
+				
+				new predict(calculation (n1,n2,n3));
+				} 
+			
+			else {System.out.println("Invalid Date!");}
+			}
+}
+
+			
+		
+	static int splitNumber(int year) {
+		int temp=0, sum=0;
+		
+			sum = year%10;
+			year = year/10;
+			temp= year%10;
+			sum=sum+(temp*10);
+	
+		return sum; 
+	}
+	static int calculation (int n1, int n2, int n3) {
+		
+		int F=0;
+	
+		int K = n1; int M = n2; int D =  splitNumber(n3); int C = n3/100;
+		
+		F = K + ((13*M-1)/5) + D + (D/4) + (C/4) - (2*C); 
+		
+		if(F>6)
+			F=F%7;
+		if(F<0) {
+			int j=1;
+			while(F<0) {
+				F=F+(j*7);
+				j++;
+			}	
+		}
+		
+		return F;
+	}
+}
+
+class predict{
+	int F;
+	predict(int F){
+		switch (F) {
+		case 0:
+			System.out.println("Sunday");
+			break;
+		case 1:
+			System.out.println("Monday");
+			break;
+		case 2:
+			System.out.println("Tuesday");
+			break;
+		case 3:
+			System.out.println("Wednesday");
+			break;
+		case 4:
+			System.out.println("Thursday");
+			break;
+		case 5:
+			System.out.println("Friday");
+			break;
+		case 6:
+			System.out.println("Saturday");
+			break;
+		default:
+			System.out.println("Invalid Date!");
+			
+		
+		}
+		
+	}
+	
+}
